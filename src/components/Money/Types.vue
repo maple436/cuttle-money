@@ -13,17 +13,19 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component, Prop} from 'vue-property-decorator';
+  import {Component} from 'vue-property-decorator';
 
   @Component
   export default class Types extends Vue {
-    @Prop() readonly value!: string;
+    type = '-';  //data
 
     selectType(type: string) {
       if (type !== '-' && type !== '+') {
         throw new Error('type is unknown');
       }
-      this.$emit('update:value',type);
+      this.type = type;
+        this.$emit('update:value',type);
+
     }
 
   }

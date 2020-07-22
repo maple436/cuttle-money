@@ -60,10 +60,12 @@
     ok(){
       if(this.output!== '0'){
         this.$emit('update:value',this.output);
-
+        this.output='0';
       }else{
         return window.alert('请输入有效金额');
       }
+
+      this.$emit('submit',this.output);
     }
   }
 </script>
