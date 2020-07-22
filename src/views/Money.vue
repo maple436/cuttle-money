@@ -31,36 +31,36 @@
   })
   export default class Money extends Vue {
     tags = ['衣', '食', '住', '行'];
-    recordList: Record[]=recordList;
+    recordList: Record[] = recordList;
     record: Record = {
-      tags:[], notes: '', type: '-', amount: 0
+      tags: [], notes: '', type: '-', amount: 0
     };
 
     onUpdateTags(value: string[]) {
-      this.record.tags=value;
+      this.record.tags = value;
     }
 
     onUpdateNotes(value: string) {
-      this.record.notes=value;
+      this.record.notes = value;
     }
 
     onUpdateAmount(value: string) {
-      this.record.amount=parseFloat(value);
+      this.record.amount = parseFloat(value);
     }
 
-    onUpdateType(value: string){
-      this.record.type=value;
+    onUpdateType(value: string) {
+      this.record.type = value;
     }
 
-    saveRecord(){
-      const record2: Record=JSON.parse(JSON.stringify(this.record))
-      record2.createdAt=new Date();
+    saveRecord() {
+      const record2: Record = JSON.parse(JSON.stringify(this.record));
+      record2.createdAt = new Date();
       this.recordList.push(record2);
     }
 
     @Watch('recordList')
-    onRecordListChang(){
-      window.localStorage.setItem('recordList',JSON.stringify(this.recordList));
+    onRecordListChang() {
+      window.localStorage.setItem('recordList', JSON.stringify(this.recordList));
     }
 
   }
