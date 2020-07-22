@@ -26,7 +26,7 @@
 
   @Component
   export default class NumberPad extends Vue {
-    output = '0';
+    output= '0';
 
     inputContent(event: MouseEvent) {
       const button = (event.target as HTMLButtonElement);
@@ -58,9 +58,13 @@
     }
 
     ok(){
-      return;
-    }
+      if(this.output!== '0'){
+        this.$emit('update:value',this.output);
 
+      }else{
+        return window.alert('请输入有效金额');
+      }
+    }
   }
 </script>
 

@@ -17,36 +17,17 @@
 
   @Component
   export default class Types extends Vue {
-    type = '-';  //data
+    @Prop() readonly value!: string;
 
-    @Prop(Number) xxx: number | undefined;
-    //Prop  告诉Vue xxx 不是data 是 prop
-    //Number 告诉 Vue xxx 运行时是个 Number
-    // xxx 属性名
-    // number | undefined 是 xxx 编译时的类型
     selectType(type: string) {
       if (type !== '-' && type !== '+') {
         throw new Error('type is unknown');
       }
-      this.type = type;
+      this.$emit('update:value',type);
     }
 
   }
 
-
-  // export default {
-  //   name: 'Types',
-  //   data(){
-  //     return {
-  //       type:'-'
-  //     }
-  //   },
-  //   methods:{
-  //     selectType(type){
-  //       this.type=type;
-  //     }
-  //   }
-  // };
 </script>
 
 <style lang="scss" scoped>
