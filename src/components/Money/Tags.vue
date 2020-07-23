@@ -57,7 +57,6 @@
     > .current {
       display: flex;
       flex-wrap: wrap;
-
       > li {
         $bg: #d9d9d9;
         background: $bg;
