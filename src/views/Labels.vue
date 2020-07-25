@@ -2,12 +2,12 @@
   <div>
     <Layout>
       <ol class="tags">
-        <li v-for="tag in tags " :key="tag">
-          <span>{{tag}}</span>
+        <li v-for="tag in tags " :key="tag.id" class="tag">
+          <span>{{tag.name}}</span>
           <Icon name="right"/>
         </li>
       </ol>
-      <div>
+      <div class="createTag-wrapper">
         <button class="createTag" @click="createTag">新建标签</button>
       </div>
     </Layout>
