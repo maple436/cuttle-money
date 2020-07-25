@@ -4,10 +4,10 @@
       <button @click="create">新增标签</button>
     </div>
     <ul class="current">
-      <li v-for="tag in dataSource" :key="tag"
+      <li v-for="tag in dataSource" :key="tag.id"
           :class="{selected: selectedTags.indexOf(tag)>=0}"
           @click="toggle(tag)">
-        {{tag}}
+        {{tag.name}}
       </li>
     </ul>
   </div>
@@ -50,6 +50,7 @@
   .tags {
     font-size: 14px;
     padding: 16px;
+    background: white;
     flex-grow: 1;
     display: flex;
     flex-direction: column-reverse;
