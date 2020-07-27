@@ -8,7 +8,7 @@
                 @update:value="onUpdateNotes"
       />
     </div>
-    <Tags />
+    <Tags/>
 
   </Layout>
 </template>
@@ -25,19 +25,19 @@
 
   @Component({
     components: {Tags, FormItem, Types, NumberPad},
-    computed:{
-      recordList(){
-        return this.$store.state.recordList;
-      }
-    },
   })
   export default class Money extends Vue {
+
+    get recordList() {
+      return this.$store.state.recordList;
+    }
+
     record: RecordItem = {
       tags: [], notes: '', type: '-', amount: 0
     };
 
-    create(){
-      this.$store.commit('fetchRecords')
+    create() {
+      this.$store.commit('fetchRecords');
     }
 
     onUpdateNotes(value: string) {
@@ -53,7 +53,7 @@
     }
 
     saveRecord() {
-      this.$store.commit('createRecords',this.record);
+      this.$store.commit('createRecords', this.record);
     }
 
 
