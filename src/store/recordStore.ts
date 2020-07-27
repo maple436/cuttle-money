@@ -1,4 +1,4 @@
-import clone from '@/lib/cllone';
+import clone from '@/lib/clone';
 
 const localStorageKeyName = 'recordList';
 
