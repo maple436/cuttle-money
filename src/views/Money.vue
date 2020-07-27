@@ -20,7 +20,6 @@
   import Tags from '@/components/Money/Tags.vue';
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
-  import store from '@/store/index.ts';
 
 
   @Component({

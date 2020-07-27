@@ -26,7 +26,7 @@ import Button from '@/components/Button.vue';
 })
   export default class Labels extends Vue {
 
-  tags(){
+  get tags(){
     return this.$store.state.tagList;
   }
 
