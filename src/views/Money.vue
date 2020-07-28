@@ -1,16 +1,15 @@
 <template>
   <Layout class-prefix="layout">
     <NumberPad @update:value="onUpdateAmount" @submit="saveRecord"/>
-    <Types :data-source="recordTypeList"
-           @update:value="onUpdateType"/>
+    <Tabs :data-source="recordTypeList"
+          :value.sync="record.type"/>
     <div class="notes">
       <FormItem field-name="备注"
                 placeholder="在这里输入备注"
                 @update:value="onUpdateNotes"
       />
     </div>
-    <Tags/>
-
+    <Tags @update:value="xxx"/>
   </Layout>
 </template>
 
@@ -39,7 +38,7 @@
       tags: [], notes: '', type: '-', amount: 0
     };
 
-    create() {
+    created() {
       this.$store.commit('fetchRecords');
     }
 
@@ -51,20 +50,21 @@
       this.record.amount = parseFloat(value);
     }
 
-    onUpdateType(value: string) {
-      this.record.type = value;
+    xxx(value: string){
+      console.log(value);
+      this.record.tags.push(value)
+
     }
 
     saveRecord() {
       this.$store.commit('createRecords', this.record);
     }
 
-
   }
 </script>
 
-<style lang="scss">
-  .layout-content {
+<style lang="scss" scoped >
+  ::v-deep  .layout-content {
     display: flex;
     flex-direction: column-reverse;
   }
