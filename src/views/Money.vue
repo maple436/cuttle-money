@@ -1,6 +1,6 @@
 <template>
   <Layout class-prefix="layout">
-    <NumberPad @update:value="onUpdateAmount" @submit="saveRecord"/>
+    <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
     <Tabs :data-source="recordTypeList"
           :value.sync="record.type"/>
     <div class="notes">
@@ -9,7 +9,7 @@
                 @update:value="onUpdateNotes"
       />
     </div>
-    <Tags @update:value="xxx"/>
+    <Tags/>
   </Layout>
 </template>
 
@@ -39,6 +39,7 @@
     };
 
     created() {
+      this.$store.commit('fetchTags')
       this.$store.commit('fetchRecords');
     }
 
@@ -46,15 +47,13 @@
       this.record.notes = value;
     }
 
-    onUpdateAmount(value: string) {
-      this.record.amount = parseFloat(value);
-    }
 
-    xxx(value: string){
-      console.log(value);
-      this.record.tags.push(value)
 
-    }
+    // xxx(value: string){
+    //   if(this.record.tags){this.record.tags=['衣']}
+    //   this.record.tags.push(value[0].name)
+    //
+    // }
 
     saveRecord() {
       this.$store.commit('createRecords', this.record);

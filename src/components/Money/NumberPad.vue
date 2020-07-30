@@ -22,11 +22,12 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import {Component,Prop} from 'vue-property-decorator';
 
   @Component
   export default class NumberPad extends Vue {
-    output= '0';
+    @Prop(Number) readonly value!: number;
+    output = this.value.toString();
 
     inputContent(event: MouseEvent) {
       const button = (event.target as HTMLButtonElement);
@@ -58,14 +59,14 @@
     }
 
     ok(){
+      const number=parseFloat(this.output)
       if(this.output!== '0'){
-        this.$emit('update:value',this.output);
+        this.$emit('update:value',number);
         this.output='0';
       }else{
         return window.alert('请输入有效金额');
       }
-
-      this.$emit('submit',this.output);
+      this.$emit('submit',number);
     }
   }
 </script>
