@@ -6,10 +6,11 @@
     <div class="notes">
       <FormItem field-name="备注"
                 placeholder="在这里输入备注"
-                @update:value="onUpdateNotes"
+                :value.sync="record.notes"
+
       />
     </div>
-    <Tags/>
+    <Tags :value.sync="record.tags"/>
   </Layout>
 </template>
 
@@ -24,7 +25,7 @@
 
 
   @Component({
-    components: {Tabs,Tags, FormItem, NumberPad},
+    components: {Tabs, Tags, FormItem, NumberPad},
   })
   export default class Money extends Vue {
 
@@ -32,38 +33,37 @@
       return this.$store.state.recordList;
     }
 
-    recordTypeList=recordTypeList;
+    recordTypeList = recordTypeList;
 
     record: RecordItem = {
       tags: [], notes: '', type: '-', amount: 0
     };
 
     created() {
-      this.$store.commit('fetchTags')
+      this.$store.commit('fetchTags');
       this.$store.commit('fetchRecords');
     }
 
-    onUpdateNotes(value: string) {
-      this.record.notes = value;
-    }
-
-
-
-    // xxx(value: string){
-    //   if(this.record.tags){this.record.tags=['衣']}
-    //   this.record.tags.push(value[0].name)
-    //
+    // onUpdateNotes(value:string){
+    //   this.record.notes=value;
     // }
 
     saveRecord() {
+      if (this.record.tags.length === 0 || !this.record.tags) {
+        return window.alert('请至少选择一个标签');
+      }
       this.$store.commit('createRecords', this.record);
+      if (this.$store.state.createRecordError === null) {
+        window.alert('已保存');
+        this.record.notes='';
+      }
     }
 
   }
 </script>
 
-<style lang="scss" scoped >
-  ::v-deep  .layout-content {
+<style lang="scss" scoped>
+  ::v-deep .layout-content {
     display: flex;
     flex-direction: column-reverse;
   }

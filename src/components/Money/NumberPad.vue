@@ -62,11 +62,12 @@
       const number=parseFloat(this.output)
       if(this.output!== '0'){
         this.$emit('update:value',number);
-        this.output='0';
       }else{
         return window.alert('请输入有效金额');
       }
-      this.$emit('submit',number);
+      if(this.$emit('submit',number)){
+        this.clear();
+      }
     }
   }
 </script>

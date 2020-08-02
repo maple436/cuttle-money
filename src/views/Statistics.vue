@@ -2,7 +2,7 @@
   <div>
     <Layout>
       <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
-      <ol>
+      <ol v-if="groupedList.length>0">
         <li v-for="(group,index) in groupedList" :key="index">
           <h3 class="title">{{beautify(group.title)}}<span>￥{{group.total}}</span></h3>
           <ol>
@@ -14,6 +14,9 @@
           </ol>
         </li>
       </ol>
+      <div v-else class="noResult" >
+       目前没有相关记录
+      </div>
     </Layout>
   </div>
 </template>
@@ -23,30 +26,32 @@
   import {Component} from 'vue-property-decorator';
   import Tabs from '@/components/Tabs.vue';
   import recordTypeList from '@/constants/recordTypeList';
-  import dayjs from 'dayjs'
+  import dayjs from 'dayjs';
   import clone from '@/lib/clone';
 
   @Component({
     components: {Tabs},
   })
   export default class Statistics extends Vue {
-    tagString(tags: Tag[]){
-      return tags.length===0?'无':tags.join(',');
+    tagString(tags: Tag[]) {
+      return tags.length === 0 ? '无' : tags.map(t=>t.name).join('，');
     }
 
-    get recordList(){
+    get recordList() {
       return (this.$store.state as RootState).recordList;
     }
 
-    get groupedList(){
-      const {recordList}=this;
-      if(recordList.length===0){return []}
+    get groupedList() {
+      const {recordList} = this;
 
-      const newList=clone(recordList)
-        .filter(r=>r.type===this.type)
-        .sort((a,b)=>dayjs(b.createdAt).valueOf()-dayjs(a.createdAt).valueOf());
-      type Result={title: string;total?: number;items: RecordItem[]}[]
-      const result: Result=[{title:dayjs(newList[0].createdAt).format('YYYY-MM-DD'),items:[newList[0]]}]
+      const newList = clone(recordList)
+        .filter(r => r.type === this.type)
+        .sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
+
+      if (newList.length === 0) {return [] as Result[];}
+
+      type Result = { title: string; total?: number; items: RecordItem[] }[]
+      const result: Result = [{title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'), items: [newList[0]]}];
 
       for (let i = 1; i < newList.length; i++) {
         const current = newList[i];
@@ -60,8 +65,6 @@
 
       result.map(group => {
         group.total = group.items.reduce((sum, item) => {
-          console.log(sum);
-          console.log(item);
           return sum + item.amount;
         }, 0);
       });
@@ -72,12 +75,12 @@
       this.$store.commit('fetchRecords');
     }
 
-    beautify(string: string){
-      const day=dayjs(string);
-      const now=dayjs();
-      if(day.isSame(now,'day')){
+    beautify(string: string) {
+      const day = dayjs(string);
+      const now = dayjs();
+      if (day.isSame(now, 'day')) {
         return '今天';
-      }else if (day.isSame(now, 'year')) {
+      } else if (day.isSame(now, 'year')) {
         return day.format('M月D日');
       } else {
         return day.format('YYYY年M月D日');
@@ -98,13 +101,16 @@
     justify-content: space-between;
     align-content: center;
   }
+
   .title {
     @extend %item;
   }
+
   .record {
     background: white;
     @extend %item;
   }
+
   .note {
     margin-right: auto;
     margin-left: 16px;
@@ -113,17 +119,23 @@
 </style>
 
 <style lang="scss" scoped>
+  .noResult{
+    padding: 16px;
+    text-align: center;
+  }
   ::v-deep {
     .type-tabs-item {
       background: #C4C4C4;
 
       &.selected {
         background: white;
+
         &::after {
           display: none;
         }
       }
     }
+
     .interval-tabs-item {
       height: 48px;
     }
