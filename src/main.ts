@@ -19,21 +19,12 @@ new Vue({
   render: h => h(App)
 }).$mount('#app');
 
+
+if(document.documentElement.clientWidth>=500){
+    window.alert('建议使用手机预览效果更好');
+}
 window.onload=function () {
   setTimeout(function () {
     window.scrollTo(0,200);
   },0)
- }
-
- if(document.documentElement.clientWidth>500){
-   window.alert('请使用手机打开页面，体验更佳!');
-   const img=document.createElement('img');
-   img.src='./qrcode.png';
-   img.style.position='fixed';
-   img.style.left='50%';
-   img.style.right='50%';
-   img.style.transform='translate(-50%,-280%)';
-   img.style.boxShadow='0 0 10px rgba(0,0,0,0.25)'
-   document.body.appendChild(img);
- }
-console.log('fuck2');
+}

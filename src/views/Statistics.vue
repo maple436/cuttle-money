@@ -100,6 +100,7 @@
     display: flex;
     justify-content: space-between;
     align-content: center;
+    /*background: white;*/
   }
 
   .title {
@@ -107,7 +108,8 @@
   }
 
   .record {
-    background: white;
+    background: rgba(254,217,67,0.6);
+    margin-bottom: 2px;
     @extend %item;
   }
 
@@ -125,10 +127,12 @@
   }
   ::v-deep {
     .type-tabs-item {
-      background: #C4C4C4;
+      background: black;
+      color:rgb(254,217,67);
 
       &.selected {
-        background: white;
+        background: rgb(254,217,67);
+        color:black;
 
         &::after {
           display: none;

@@ -84,6 +84,7 @@
       padding: 8px 16px;
       text-align: right;
       min-height: 72px;
+      background: white;
     }
 
     .buttons {
@@ -105,7 +106,7 @@
           width: 25*2%;
         }
 
-        $bg: #f2f2f2;
+        $bg: rgb(241,242,244);
 
         &:nth-child(1) {
           background: $bg;

@@ -56,7 +56,7 @@
   .tags {
     font-size: 14px;
     padding: 16px;
-    background: white;
+    background: rgb(254,254,254);
     flex-grow: 1;
     display: flex;
     flex-direction: column-reverse;
@@ -66,7 +66,7 @@
       flex-wrap: wrap;
 
       > li {
-        $bg: #d9d9d9;
+        $bg: rgb(244,244,244);
         background: $bg;
         $h: 24px;
         height: $h;
@@ -77,8 +77,8 @@
         margin-top: 4px;
 
         &.selected {
-          background: darken($bg, 50%);
-          color: white;
+          background: rgb(254,217,67);
+          /*color: white;*/
         }
       }
     }
@@ -89,7 +89,7 @@
       button {
         background: transparent;
         border: none;
-        color: #999;
+        color: rgb(254,217,67);
         border-bottom: 1px solid;
         padding: 0 4px;
       }

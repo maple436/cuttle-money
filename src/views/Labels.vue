@@ -65,8 +65,8 @@ import Button from '@/components/Button.vue';
     }
   }
   .createTag {
-    background: #767676;
-    color: white;
+    background: rgb(254,217,67);
+    color: black;
     border-radius: 4px;
     border: none;
     height: 40px;
